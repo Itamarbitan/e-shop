@@ -1,0 +1,13 @@
+------- Todo List --------
+1. Add All Pages -> Done
+2. Add Routes -> Done
+3. Add Server -> Done
+
+
+------- Questions --------
+
+1. How set footer on bottom of the Page ? -> Done
+2. How to do JOI validation each Input itself error message ? -> Done
+3. Why setVacations dont update array imideatly ?
+4. Why image url and alt defaut from server ? not my image.
+5. Need add new collection for favorite cards ?
