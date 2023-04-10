@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AppContext } from "../../App";
 import BusinessCards from "../../components/BusinessCards";
+import CartItems from "../../components/CartItems";
 import MenuBar from "../../components/MenuBar";
 import Title from "../../components/Title";
 import { getRequest } from "../../services/apiService";
 
-function MyCards() {
+function MyProducts() {
     const context = useContext(AppContext);
     const navigate = useNavigate();
 
-    function getBusinessCards() {
+    function getProducts() {
         const res = getRequest(`cards/user/${context?.user_id}`);
         
         if(!res) {
@@ -19,7 +20,6 @@ function MyCards() {
             return;
         }
 
-        console.log(context?.user_id)
         res
         .then(response => response.json())
         .then(json => {
@@ -40,20 +40,19 @@ function MyCards() {
         });
     }
 
-    // Hook useEffect, Run getBusinessCards function only ones time then page loades.
     useEffect(() => {
         if (!context?.user_id) {
             navigate('/signin');
             return;
         }
-        getBusinessCards();
+        getProducts();
     },[]);
 
     return ( 
         <>
             <Title 
-                main="My Cards"
-                sub="business cards created by me"
+                main="My Products"
+                sub="Manage your products here"
             /> 
             <MenuBar />
             <BusinessCards />
@@ -61,4 +60,4 @@ function MyCards() {
     );
 }
 
-export default MyCards;
+export default MyProducts;

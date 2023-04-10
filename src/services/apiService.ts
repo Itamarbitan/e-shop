@@ -24,7 +24,7 @@ const handleRequest = (
     return fetch(url, config);
 }
 
-export const getRequest = (endpoint: string): Promise<Response> | null => {
+export const getRequest = (endpoint: string, checkToken = true): Promise<Response> | null => {
     return handleRequest(
         `${serverUrl}${endpoint}`,
         'GET'

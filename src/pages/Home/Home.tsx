@@ -9,10 +9,8 @@ import { getRequest } from "../../services/apiService";
 function Home() {
     const context = useContext(AppContext);
     
-    function getBusinessCards() {
-        const res = getRequest('cards');
-
-        console.log("get Business Cards");
+    function getProducts() {
+        const res = getRequest('cards', false);
 
         if(!res) {
             console.log('No response...')
@@ -40,13 +38,13 @@ function Home() {
     }
 
     // Hook useEffect, Run getBusinessCards function only ones time then page loades.
-    useEffect(getBusinessCards,[]);
+    useEffect(getProducts,[]);
 
     return (  
         <>        
             <Title 
-                main="Local Biz"
-                sub="Every business near you"
+                main="E-Shop"
+                sub="All you need for in one place"
             />
             <MenuBar />
             <BusinessCards />

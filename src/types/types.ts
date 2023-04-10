@@ -9,17 +9,15 @@ export interface IError {
     [key: string]: string;
 }
 
-export interface IBusinessCard {
+export interface IProduct {
     _id: number;
     title: string;
     subTitle: string;
     description: string;
-    address: string;
+    price: number;
+    quantity: number;
     phone: string;
-    image: {
-        url: string;
-        alt: string;
-    };
+    image: string;
     bizNumber: string;
     user_id: string;
     createdAt: Date;

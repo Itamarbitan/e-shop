@@ -1,27 +1,31 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppContext } from "../../App";
+import { AppContext } from "../App";
 
 interface Props {
+    image: string;
     _id: number;
     title: string;
     subTitle: string;
-    address: string;
+    price: number;
     phone: string;
     bizNumber: string;
     user_id: string;
     handleDeleteCard: Function;
+    addToCart: Function;
 }
 
-function Card({
+function Product({
+        image,
         _id,
         title,
         subTitle,
-        address,
+        price,
         phone,
         bizNumber,
         user_id,
-        handleDeleteCard
+        handleDeleteCard,
+        addToCart
     }: Props) {
     
     const context = useContext(AppContext);
@@ -38,17 +42,15 @@ function Card({
     return (  
         <>
         <div className={context.cardsDisplayMode}>
-            <div className="card">
-                <img 
-                src="https://cdn.pixabay.com/photo/2018/03/03/19/29/skyscraper-3196390_1280.jpg"   
-                className="card-img-top rounded" alt="alt" />  
+            <div className="card shadow p-1 mb-3 bg-body-tertiary rounded">
+                <img src={`${image}`} className="card-img-top rounded img-fluid img-thumbnail" alt={title} />  
                 <div className="card-body">
                     <h5 className="card-title text-start">{title}</h5>
                     <span className="text-muted">{subTitle}</span>
                     <hr />
-                    <p><strong>Address: </strong>{address}</p>
+                    <p><strong>Price: </strong><span className="font-size-lg text-primary pt-2">{price+'$'}</span></p>
                     <p><strong>Phone: </strong>{phone}</p>
-                    <p><strong>Card Number: </strong>{bizNumber}</p>
+                    <small>Card Number: {bizNumber}</small>
                     <hr />
                     <div className="d-flex justify-content-evenly">
                         {
@@ -69,8 +71,9 @@ function Card({
                             </>
                         }
                         <button 
+                            onClick={(e) => addToCart(e)}
                             className="btn btn-default">
-                            <i className="bi-hand-thumbs-up"></i>
+                            <i className="bi bi-cart"></i>
                         </button>                          
                     </div>
                 </div>  
@@ -84,4 +87,4 @@ function Card({
     );
 }
 
-export default Card;
+export default Product;

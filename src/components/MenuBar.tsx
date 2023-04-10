@@ -30,7 +30,7 @@ function MenuBar() {
                     value={context.search}
                     onChange={(e) => context.handleSearch(e.target.value, context.businessCards)}
                     className="form-control ms-3 w-50"
-                    placeholder="Enter business name or number"
+                    placeholder="Enter a product name or number"
                 ></input>
 
             </div>

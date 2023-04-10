@@ -1,3 +1,4 @@
+const { number } = require("joi");
 const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
@@ -19,11 +20,9 @@ const cardSchema = new mongoose.Schema({
         minlength: 2,
         maxlength: 1024,
     },
-    address: {
-        type: String,
+    price: {
+        type: Number,
         required: true,
-        minlength: 2,
-        maxlength: 256,
     },
     phone: {
         type: String,
@@ -32,13 +31,10 @@ const cardSchema = new mongoose.Schema({
         maxlength: 17,
     },
     image: {
-        url: {
-            type: String,
-            required: true,
-            minlength: 2,
-            maxlength: 1024,
-        },
-        alt: { type: String, required: true, minlength: 2, maxlength: 256 },
+        type: String,
+        required: true,
+        minlength: 2,
+        maxlength: 1024,
     },
     bizNumber: {
         type: String,
@@ -46,14 +42,10 @@ const cardSchema = new mongoose.Schema({
         maxlength: 7,
         required: true,
     },
-    // createdAt: {
-    //     type: Date,
-    //     default: Date.now,
-    // },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    },
+    }
 });
 
 const Card = mongoose.model("card", cardSchema);

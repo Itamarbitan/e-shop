@@ -6,11 +6,11 @@ import Title from "../../components/Title";
 import { getRequest, patchRequest } from "../../services/apiService";
 import { IError } from "../../types/types";
 
-interface IBusinessCardData {
+interface IProductData {
     title: string;
     subTitle: string;
     description: string;
-    address: string;
+    price: number;
     phone: string;
     image: string;
 }
@@ -21,7 +21,7 @@ function Edit() {
     const [title, setTitle] = useState<string>('');
     const [subTitle, setSubTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const [address, setAddress] = useState<string>('');
+    const [price, setPrice] = useState<number>();
     const [phone, setPhone] = useState<string>('');
     const [image, setImage] = useState<string>('');
     const [error, setError] = useState<IError>({});
@@ -43,7 +43,7 @@ function Edit() {
             setTitle(json.title);
             setSubTitle(json.subTitle);
             setDescription(json.description);
-            setAddress(json.address);
+            setPrice(json.price);
             setPhone(json.phone);
             setImage(json.image);
         })
@@ -54,7 +54,7 @@ function Edit() {
             title: Joi.string().required().min(2).max(255),
             subTitle: Joi.string().required().min(2).max(255),
             description: Joi.string().required().min(2).max(1024),
-            address: Joi.string().required().min(2).max(255),
+            price: Joi.number().required().min(0).max(99999),
             phone: Joi.string().required().min(9).max(17),
             image: Joi.string().required().min(2).max(1024),
         });
@@ -63,7 +63,7 @@ function Edit() {
             title,
             subTitle,
             description,
-            address,
+            price,
             phone,
             image
         },{abortEarly: false});
@@ -86,7 +86,7 @@ function Edit() {
         updateCard(value); 
     }
 
-    function updateCard(data: IBusinessCardData) {
+    function updateCard(data: IProductData) {
         const res = patchRequest(
             `cards/${id}`,
             data
@@ -112,7 +112,7 @@ function Edit() {
                 });                   
                 return;
             }
-            toast.success(`Card ${json.title} Updated succsessifully`,{
+            toast.success(`Product ${json.title} Updated succsessifully`,{
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -129,17 +129,17 @@ function Edit() {
     return (
         <>
             <Title 
-                main="Business Card Updating Form"
-                sub="Here you can update the business card"
+                main="Product Updating Form"
+                sub="Here you can update the product details"
             />
             <div className="p-3 form-max-w w-50 m-auto">
                 <hr/>
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Title:</label>
+                    <label className="mb-2 fs-5">Title:</label>
                     <input
                         type="text"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Title"
+                        placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     >
@@ -152,11 +152,11 @@ function Edit() {
                     </div>
                 }                
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Sub Title:</label>
+                    <label className="mb-2 fs-5">Sub Title:</label>
                     <input
                         type="text"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Sub Title"
+                        placeholder="Sub Title"
                         value={subTitle}
                         onChange={(e) => setSubTitle(e.target.value)}
                     >
@@ -169,10 +169,10 @@ function Edit() {
                     </div>
                 }                   
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Description:</label>
+                    <label className="mb-2 fs-5">Product Description:</label>
                     <textarea
                         className="form-control text-muted mb-3"
-                        placeholder="Business Description"
+                        placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     >
@@ -185,20 +185,20 @@ function Edit() {
                     </div>
                 }                    
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Address:</label>
+                    <label className="mb-2 fs-5">Product price:</label>
                     <input
                         type="text"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Product price"
+                        value={price}
+                        onChange={(e) => setPrice(+e.target.value)}
                     >
                     </input>
                 </div>
                 {
-                    error && error.address && 
+                    error && error.price && 
                     <div className="text-danger">
-                        {error.address}
+                        {error.price}
                     </div>
                 }                     
                 <div className="mp-3">
@@ -219,11 +219,11 @@ function Edit() {
                     </div>
                 }                   
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Image:</label>
+                    <label className="mb-2 fs-5">Product Image:</label>
                     <input
                         type="url"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Image url"
+                        placeholder="Image url"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                     >
@@ -238,7 +238,7 @@ function Edit() {
                     <button
                         onClick={submit}
                         className="btn btn-primary btn-lg me-3"
-                    >Update Card
+                    >Update Product
                     </button>
                     <Link
                         to="/"

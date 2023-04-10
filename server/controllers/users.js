@@ -118,4 +118,20 @@ module.exports = {
             console.log(`Error: ${err}`);
         }
     },
+
+
+    addToCart: async function (req, res, next) {
+        try {
+            const user = await User.findOne({ email: req.token.email });
+            if (!user) throw "Not signed in";
+
+            const x = user.cart_id
+            x.push(req.body._id)
+            await user.updateOne({cart_id: x})
+        }
+        catch (err) {
+            console.log(err.message);
+            res.status(400).json({ error: `error updating user` });
+        }
+    }
 }

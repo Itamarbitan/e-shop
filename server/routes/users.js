@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const users = require('../controllers/users');
 
 router.get('/:id', auth, users.details);
+router.post('/cart', users.addToCart)
 
 /* authentication */
 router.post('/login', users.login);

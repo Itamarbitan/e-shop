@@ -11,7 +11,7 @@ function About() {
                 <div className="row">
                     <div className="col-md-8">
                         <p className="fs-4 fw-lighter">
-                            Local Biz gathers every business in the city and help it shine on our platform. Bussines owners are free of charge, just sign up and let everybody know about your business.
+                            E-Shop is a open platform that enables sellers and shopers meet and trade goods easly
                         </p>
                     </div>
                     <div className="col-6 col-md-4">
@@ -23,9 +23,9 @@ function About() {
                                     alt="Img Title"/>  
                                 <div className="card-body">
                                     <p><strong>Description: </strong></p>
-                                    <p><strong>Address: </strong></p>
+                                    <p><strong>Price: </strong></p>
                                     <p><strong>Phone: </strong></p>
-                                    <p><strong>Card Number: </strong></p>
+                                    <p><strong>Product Number: </strong></p>
                                     <hr />
                                     <div className="d-flex justify-content-evenly">
                                         <button 

@@ -11,18 +11,17 @@ function Navbar() {
     }
 
     const isSignedIn = context && context.userName.length > 0;
-    console.log(`isSignedIn status: ${isSignedIn}`);
 
 
     return (  
         <header>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
                     <NavLink 
                         className="navbar-brand" 
                         to="/">
-                        <i className="bi bi-briefcase-fill me-2" />
-                        Local-Biz
+                        <i className="bi bi-bag me-2" />
+                        E-Shop
                     </NavLink>
                     <ul className="navbar-nav flex-row me-auto mb-2 mb-lg-0">
                         <li className="nav-item me-3">
@@ -37,23 +36,24 @@ function Navbar() {
                             <NavLink 
                                 className="nav-link"
                                 aria-current="page"
-                                to="/mycards"
-                            >My Cards
+                                to="/myProducts"
+                            >My Products
                             </NavLink>
                         </li>
-                        {/* <li className="nav-item me-2">
-                            <NavLink 
-                                className="nav-link"
-                                aria-current="page"
-                                to="/favoritecards"
-                            >My Favorite Cards
-                            </NavLink>
-                        </li> */}
+
                         <span className="btn text-light">
                             <User />
                         </span>                        
                     </ul>
                     <ul className="navbar-nav flex-row mb-2 mb-lg-0">
+                                <li className="nav-item me-2">
+                                    <NavLink 
+                                        className="nav-link"
+                                        aria-current="page"
+                                        to="/cart"
+                                    ><i className="bi bi-cart"> Cart</i>
+                                    </NavLink>
+                                </li>
                         {
                             !isSignedIn &&
                             <>
@@ -90,8 +90,8 @@ function Navbar() {
                                     <NavLink
                                         className="nav-link"
                                         aria-current="page"
-                                        to="/businesscardregistration"
-                                    >Create a business card                                
+                                        to="/productregistration"
+                                    >Create a new product                              
                                     </NavLink>
                                 </li>                            
                                 <li className="nav-item me-3">

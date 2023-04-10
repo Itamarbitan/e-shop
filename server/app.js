@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(headers);
 app.use('/', indexRouter);
+app.use('/users/cart', auth, usersRouter)
 app.use('/users', usersRouter);
 app.use('/cards', auth, cardsRouter);
 

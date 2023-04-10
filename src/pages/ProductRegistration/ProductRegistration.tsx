@@ -7,28 +7,25 @@ import Title from "../../components/Title";
 import { postRequest } from "../../services/apiService";
 import { IError } from "../../types/types";
 
-interface IBusinessCardData {
+interface IProductData {
     title: string;
     subTitle: string;
     description: string;
-    address: string;
+    price: number;
     phone: string;
-    image: {
-        url: string;
-        alt: string;
-    };
+    image: string;
 }
 
-function BusinessCardRegistration() {
+function ProductRegistration() {
     const context = useContext(AppContext);
           
     const navigate = useNavigate();
     const [title, setTitle] = useState<string>('');
     const [subTitle, setSubTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const [address, setAddress] = useState<string>('');
+    const [price, setPrice] = useState<number>();
     const [phone, setPhone] = useState<string>('');
-    const [img, setImg] = useState<string>('');
+    const [image, setImage] = useState<string>('');
     const [error, setError] = useState<IError>({});
 
     function submit() {
@@ -36,16 +33,18 @@ function BusinessCardRegistration() {
             title: Joi.string().required().min(2).max(255),
             subTitle: Joi.string().required().min(2).max(255),
             description: Joi.string().required().min(2).max(1024),
-            address: Joi.string().required().min(2).max(255),
+            price: Joi.number().required(),
             phone: Joi.string().min(9).max(17).required(),
+            image: Joi.string().required().min(2).max(1024)
         });
 
         const { error, value } = schema.validate({
             title,
             subTitle,
             description,
-            address,
+            price,
             phone,
+            image,
         },{abortEarly: false});
 
         if (error) {
@@ -63,14 +62,10 @@ function BusinessCardRegistration() {
         }
 
         setError({});
-        const url:string = img;
-        const alt:string = title
-        const newCard:IBusinessCardData = {...value,url,alt}
-        console.log(newCard)
-        createCard(newCard); 
+        createCard(value); 
     }
 
-    function createCard(data: IBusinessCardData) {
+    function createCard(data: IProductData) {
         const res = postRequest(
             'cards',
             data,
@@ -97,7 +92,7 @@ function BusinessCardRegistration() {
                 });                   
                 return;
             }
-            toast.success(`New Card ${json.title} Added succsessifully`,{
+            toast.success(`New Product ${json.title} Added succsessifully`,{
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -114,17 +109,17 @@ function BusinessCardRegistration() {
     return (  
         <>
             <Title 
-                main="Business Card Registration Form"
-                sub="Open business card"
+                main="New product Registration Form"
+                sub=""
             />
             <div className="p-3 form-max-w w-50 m-auto">
                 <hr/>
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Title:</label>
+                    <label className="mb-2 fs-5">Title:</label>
                     <input
                         type="text"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Title"
+                        placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     >
@@ -137,11 +132,11 @@ function BusinessCardRegistration() {
                     </div>
                 }                
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Sub Title:</label>
+                    <label className="mb-2 fs-5">Sub Title:</label>
                     <input
                         type="text"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Sub Title"
+                        placeholder="Sub Title"
                         value={subTitle}
                         onChange={(e) => setSubTitle(e.target.value)}
                     >
@@ -154,10 +149,10 @@ function BusinessCardRegistration() {
                     </div>
                 }                   
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Description:</label>
+                    <label className="mb-2 fs-5">Description:</label>
                     <textarea
                         className="form-control text-muted mb-3"
-                        placeholder="Business Description"
+                        placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     >
@@ -170,13 +165,13 @@ function BusinessCardRegistration() {
                     </div>
                 }                    
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Address:</label>
+                    <label className="mb-2 fs-5">Product price:</label>
                     <input
                         type="text"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Product price"
+                        value={price}
+                        onChange={(e) => setPrice(+e.target.value)}
                     >
                     </input>
                 </div>
@@ -204,13 +199,13 @@ function BusinessCardRegistration() {
                     </div>
                 }                   
                 <div className="mp-3">
-                    <label className="mb-2 fs-5">Business Image:</label>
+                    <label className="mb-2 fs-5">Image:</label>
                     <input
                         type="url"
                         className="form-control text-muted mb-3"
-                        placeholder="Business Image url"
-                        value={img}
-                        onChange={(e) => setImg(e.target.value)}
+                        placeholder="Image url"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
                     >
                     </input>
                 </div>
@@ -218,7 +213,7 @@ function BusinessCardRegistration() {
                     <button
                         onClick={submit}
                         className="btn btn-primary btn-lg"
-                    >Create Card
+                    >Create Product
                     </button>
                 </div>
                 <hr/>
@@ -227,4 +222,4 @@ function BusinessCardRegistration() {
     );
 }
 
-export default BusinessCardRegistration;
+export default ProductRegistration;

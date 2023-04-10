@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const card = require('./Card')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -29,7 +30,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true,
-    }
+    },
+    cart_id: [mongoose.SchemaTypes.ObjectId]
 });
 
 const User = mongoose.model('User', userSchema);
